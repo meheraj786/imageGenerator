@@ -6,6 +6,7 @@ import {
   Wand2,
   ImageIcon,
   Palette,
+  Grape,
 } from "lucide-react";
 import SplitText from "../effects/SplitText";
 
@@ -92,17 +93,16 @@ const GenerateImages = () => {
       setImageUrl(newImageUrl);
       setIsGenerating(false);
       setShowImage(true);
-    }, 2000);
+      scrollToBottom()
+    }, 5000);
   };
 
-  const downloadImage = () => {
-    if (imageUrl) {
-      const link = document.createElement("a");
-      link.href = imageUrl;
-      link.download = `ai-generated-${Date.now()}.jpg`;
-      link.click();
-    }
-  };
+const scrollToBottom = () => {
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth",
+  });
+};
 
   const regenerateImage = () => {
     if (text.trim()) {
@@ -111,20 +111,20 @@ const GenerateImages = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-900 to-indigo-900 p-6">
+    <div className="min-h-screen bg-gradient-to-br font-body from-blue-900 via-blue-900 to-indigo-900 p-6">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full opacity-20 blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-20 blur-3xl animate-pulse animation-delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full opacity-10 blur-3xl animate-pulse animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full opacity-10 blur-3xl animate-pulse animation-delay-2000"></div>
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl mb-6 shadow-lg">
-            <Wand2 className="w-10 h-10 text-white" />
+            <Grape className="w-10 h-10 text-purple-100" />
           </div>
           <br />
-          <SplitText className="text-5xl pb-5 inline-block font-bold text-white mb-4 bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text " text="PookiePixel" delay={100} duration={0.6} />
+          <SplitText className="text-5xl pb-5  inline-block font-bold font-heading text-white mb-4 bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text " text="Graple" delay={100} duration={0.6} />
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Transform your imagination into stunning visuals with the power of
             AI
@@ -235,29 +235,19 @@ const GenerateImages = () => {
                   Generated Artwork
                 </h2>
               </div>
-
-              {imageUrl && showImage && !isGenerating && (
-                <button
-                  onClick={downloadImage}
-                  className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold py-2 px-4 rounded-xl transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>Download</span>
-                </button>
-              )}
             </div>
 
             <div className="relative">
               {isGenerating && (
                 <div className="aspect-square bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center border-2 border-dashed border-white/30">
                   <div className="text-center">
-                    <div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-white text-lg font-medium">
                       Creating your masterpiece...
                     </p>
                     <div className="mt-4 flex justify-center space-x-2">
                       <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce animation-delay-200"></div>
+                      <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce animation-delay-200"></div>
                       <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce animation-delay-400"></div>
                     </div>
                   </div>
@@ -288,7 +278,7 @@ const GenerateImages = () => {
         {!imageUrl && !isGenerating && (
           <div className="grid md:grid-cols-3 gap-6 mt-12">
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mb-4">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-white font-semibold text-lg mb-2">
@@ -328,8 +318,6 @@ const GenerateImages = () => {
           </div>
         )}
       </div>
-
-      
     </div>
   );
 };
